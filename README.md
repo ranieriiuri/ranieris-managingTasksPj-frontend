@@ -1,6 +1,6 @@
 # Aplicação React de Gerenciamento de Projetos e Tarefas
 
-Projeto criado com as bibliotecas React JS e Material UI.
+Projeto criado com as bibliotecas React JS e React Boostrap.
 
 ## Passo-a-passo para execução
 

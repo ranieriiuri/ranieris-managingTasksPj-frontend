@@ -1,32 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Button from '@mui/material/Button';
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
-import Modal from '@mui/material/Modal';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card'
+import Table from 'react-bootstrap/Table';
+import Modal from 'react-bootstrap/Modal';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import { AiFillEdit, AiFillDelete } from 'react-icons/ai';
 
 import CriarTarefa from './CriarTarefa';
 import EditarTarefa from './EditarTarefa';
 
 //A função abaixo é usada para criar o array contendo os dados iniciais da listagem de tarefas.
 function createData(
-  idTarefa: number,
-  tituloTarefa: string,
-  descricaoTarefa: string,
-  inicioTarefa: string,
-  fimTarefa: string,
-  statusTarefa: string,
-  recursoTarefa: string,
+  idTarefa,//: number,         -- Destravar a tipagem, caso vá usar o TS!
+  tituloTarefa,//: string,
+  
+  descricaoTarefa,//: string,
+  inicioTarefa,//: string,
+  fimTarefa,//: string,
+  statusTarefa,//: string,
+  recursoTarefa,//: string,
 ) {
   return { idTarefa, tituloTarefa, descricaoTarefa, inicioTarefa, fimTarefa, statusTarefa, recursoTarefa };
 }
@@ -82,104 +75,90 @@ const ListarTarefa = () => {
   };
 
     return(
-      <>
-      <Card sx={{ backgroundColor: "#ffffff", boxShadow: 3, borderRadius: 2, padding: 2 }}>
-        <CardHeader
-          title="Tarefas"
-          subheader="Listagem de Tarefas"
-          sx={{ color: "#333333", borderBottom: "1px solid #e0e0e0" }}
-        />
-        <CardContent>
-          <TableContainer component={Paper} sx={{ backgroundColor: "#f5f5f5", boxShadow: 2 }}>
-            <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-              <TableHead>
-                <TableRow sx={{ backgroundColor: "#eeeeee" }}>
-                  <TableCell>#</TableCell>
-                  <TableCell>Título</TableCell>
-                  <TableCell align="right">Descrição</TableCell>
-                  <TableCell align="right">Data de Início</TableCell>
-                  <TableCell align="right">Data de Finalização</TableCell>
-                  <TableCell align="right">Status</TableCell>
-                  <TableCell align="right">Recurso</TableCell>
-                  <TableCell align="center" colSpan={2}>Ações</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
+    <>
+    <Card>
+      <Card.Header>
+      <Card.Title>
+          Tarefas
+        </Card.Title> 
+        <Card.Subtitle>
+          Listagem de Tarefas
+        </Card.Subtitle> 
+      </Card.Header>
+      <Card.Body>
+        <Card.Text>
+            <Table striped bordered hover responsive>
+                <thead>
+                  <tr>
+                      <th>#</th>
+                      <th>Título</th>
+                      <th align="right">Descrição</th>
+                      <th align="right">Data de Início</th>
+                      <th align="right">Data de Finalização</th>
+                      <th align="right">Status</th>
+                      <th align="right">Recurso</th>
+                      <th align="left"></th>
+                      <th align="left"></th>
+                  </tr>
+                </thead>
+                <tbody>
                 {tarefas.map((row, indice) => (
-                  <TableRow
+                    <tr
                     key={indice}
-                    sx={{
-                      '&:last-child td, &:last-child th': { border: 0 },
-                      '&:hover': { backgroundColor: "#e0f7fa" }
-                    }}
-                  >
-                    <TableCell>{row.idTarefa}</TableCell>
-                    <TableCell>{row.tituloTarefa}</TableCell>
-                    <TableCell align="right">{row.descricaoTarefa}</TableCell>
-                    <TableCell align="right">{row.inicioTarefa}</TableCell>
-                    <TableCell align="right">{row.fimTarefa}</TableCell>
-                    <TableCell align="right">{row.statusTarefa}</TableCell>
-                    <TableCell align="right">{row.recursoTarefa}</TableCell>
-                    <TableCell align="center">
-                      <Button
-                        variant="contained"
-                        sx={{ backgroundColor: "#00796b", '&:hover': { backgroundColor: "#004d40" } }}
-                        onClick={() => handleEditar(row.idTarefa)}
-                      >
-                        <EditIcon fontSize="small" />
-                      </Button>
-                    </TableCell>
-                    <TableCell align="center">
-                      <Button
-                        variant="contained"
-                        color="error"
-                        onClick={() => handleDeletar(row.idTarefa)}
-                        sx={{ backgroundColor: "#d32f2f", '&:hover': { backgroundColor: "#b71c1c" } }}
-                      >
-                        <DeleteIcon fontSize="small" />
-                      </Button>
-                    </TableCell>
-                  </TableRow>
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <td component="th" scope="row">
+                          {row.idTarefa}
+                      </td>
+                      <td component="th" scope="row">
+                          {row.tituloTarefa}
+                      </td>
+                      <td align="left">{row.descricaoTarefa}</td>
+                      <td align="left">{row.inicioTarefa}</td>
+                      <td align="left">{row.fimTarefa}</td>
+                      <td align="left">{row.statusTarefa}</td>
+                      <td align="left">{row.recursoTarefa}</td>
+                      <td align="center">
+                        <Button variant="contained" color="success" onClick={() => handleEditar(row.idTarefa)}><AiFillEdit/></Button>            
+                      </td>
+                      <td align="center">
+                        <Button variant="contained" color="error" onClick={() => handleDeletar(row.idTarefa)}><AiFillDelete/></Button>            
+                      </td>
+                    </tr>
                 ))}
-              </TableBody>
+                </tbody>
             </Table>
-          </TableContainer>
-        </CardContent>
-        <CardActions sx={{ justifyContent: "flex-end" }}>
-          <Button variant="contained" sx={{ backgroundColor: "#0288d1", '&:hover': { backgroundColor: "#01579b" } }} onClick={handleOpen}>
-            Criar Tarefa
-          </Button>
-          <Button variant="outlined" sx={{ color: "#757575", borderColor: "#bdbdbd", '&:hover': { backgroundColor: "#eeeeee" } }}>
-            Cancelar
-          </Button>
-        </CardActions>
-      </Card>
-    
-      {/* Modal Criar Tarefa */}
+        </Card.Text>
+        <Row>
+          <Col md="auto">
+            <Button variant="success" onClick={handleOpen}>Criar Tarefa</Button>  
+          </Col>
+          <Col md={1}>
+            <Button variant="secondary" className="ml-30">Cancelar</Button>
+          </Col>
+        </Row>
+      </Card.Body>
+    </Card>
+    <div>
       <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <div style={{ padding: '20px', backgroundColor: '#ffffff', boxShadow: '0px 4px 20px rgba(0,0,0,0.1)', borderRadius: '8px' }}>
+        size="lg"
+        show={open} onHide={handleClose}      >
+        <Modal.Body>
           <CriarTarefa handleClose={handleClose} tarefas={tarefas} setTarefas={setTarefas} />
-        </div>
-      </Modal>
-    
-      {/* Modal Editar Tarefa */}
+        </Modal.Body>
+      </Modal>  
+    </div>
+    <div>
       <Modal
-        open={openEditar}
-        onClose={handleCloseEditar}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        size="lg"      
+        show={openEditar} onHide={handleCloseEditar}
       >
-        <div style={{ padding: '20px', backgroundColor: '#ffffff', boxShadow: '0px 4px 20px rgba(0,0,0,0.1)', borderRadius: '8px' }}>
+        <Modal.Body>
           <EditarTarefa handleCloseEditar={handleCloseEditar} idTarefaSelecionada={idTarefaSelecionada} tarefas={tarefas} tarefa={tarefa} setTarefas={setTarefas} />
-        </div>
-      </Modal>
-    </>
-     
+        </Modal.Body>
+      </Modal>  
+    </div>
+  </>    
  );
 };
  
