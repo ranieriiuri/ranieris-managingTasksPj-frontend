@@ -1,4 +1,5 @@
 import Header from "./components/header";
+import ListaProduto from "./pages/Produto/ListaProduto";
 import ListarTarefa from "./pages/tarefa/ListarTarefa";
 
 function App() {
@@ -6,6 +7,7 @@ function App() {
     <div className="App">
       <Header />
       <ListarTarefa />
+      <ListaProduto />
     </div>
   );
 }
